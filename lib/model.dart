@@ -1,4 +1,3 @@
-
 class Cocktail{
   final String name;    //칵테일 이름
   final String imgPath; //이미지 경로

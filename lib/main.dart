@@ -124,10 +124,12 @@ class _CocktailsState extends State<Cocktails> {
               Container(
                 alignment: Alignment.center,
                 height: 300,
+                width: 400,
                 child: ListView.builder(
                     itemCount: cocktailData.length,
                     itemBuilder: (context, index) {
                       return Card(
+
                         child: ListTile(
                           title: Text(cocktailData[index].name),
                           leading: SizedBox(
