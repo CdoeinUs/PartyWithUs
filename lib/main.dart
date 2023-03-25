@@ -3,7 +3,6 @@ import 'main_second.dart';
 import 'model.dart';
 import 'cocktail_Detail.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -24,7 +23,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class Cocktails extends StatefulWidget {
   const Cocktails({Key? key}) : super(key: key);
 
@@ -33,12 +31,7 @@ class Cocktails extends StatefulWidget {
 }
 
 class _CocktailsState extends State<Cocktails> {
-  static List<String> cocktailName = [
-    '뱅쇼',
-    '하이볼',
-    '블루라군',
-    '동해'
-  ];
+  static List<String> cocktailName = ['뱅쇼', '하이볼', '블루라군', '동해'];
   static List<String> cocktailImagePath = [
     'image/cocktail1.png',
     'image/cocktail2.png',
@@ -51,111 +44,92 @@ class _CocktailsState extends State<Cocktails> {
     '보드카 베이스 칵테일로, 이름의 뜻은 푸른 산호초. 그래서인지 칵테일 색도 마찬가지로 푸른색이다. 두 가지 버전이 있는데, 하나는 구프 글라스에 따르는 숏 드링크, 하나는 하이볼 글라스 또는 콜린스 글라스에 따르는 롱 드링크다. 때문에 바에서 블루 라군을 주문할 때는 꼭 정확한 표현을 사용해서 주문해야 된다.',
     ' 칵테일 동해를 비롯한 시중에서 잘 나가는 종류의 칵테일들은 공통점이라면 특유의 개성적인 맛이 있다기보단 색상적인 화려함과 이미지, 그리고 누가 마셔도 맛있게 느낄만한 달콤함과 새콤함 등 무난한 맛이 특징이라 할 수 있습니다. 그렇기에 거의 공통적으로 쓰이는 재료를 들자면 복숭아 리큐르인 피치 시냅스, 즉 피치 트리, 코코넛 럼인 말리부 또는 그와 유사한 상품, 푸른색을 내는 대표적인 재료인 블루 큐라소, 마지막으로 스위트&사워 믹스(Sweet&Sour Mix) 줄여서 사워 믹스라 부르는 것들이 있습니다.'
   ];
-  static List<String> cocktailBase = [
-    '와인',
-    '진',
-    '럼',
-    '보드카'
-  ];
+  static List<String> cocktailBase = ['와인', '진', '럼', '보드카'];
 
   final List<Cocktail> cocktailData = List.generate(
-      cocktailName.length, (index) =>
-      Cocktail(
-          cocktailName[index], cocktailImagePath[index], cocktailDetail[index],
-          cocktailBase[index]));
+      cocktailName.length,
+      (index) => Cocktail(cocktailName[index], cocktailImagePath[index],
+          cocktailDetail[index], cocktailBase[index]));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:
-        Center(
+        body: Center(
             child: Column(children: [
-              Container(
-                  padding: const EdgeInsets.all(20),
-                  width: 400,
-                  height: 400,
-                  color: Colors.black,
+      Container(
+          padding: const EdgeInsets.all(20),
+          width: MediaQuery.of(context).size.width,
+          height: (MediaQuery.of(context).size.height) * 0.5,
+          color: Colors.black,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox.fromSize(
+                size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.008),
+              ),
+              const Text("OUNCE\n",
+                  style: TextStyle(color: Colors.white, fontSize: 28)),
+              SizedBox.fromSize(
+                size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.11),
+              ),
+              const Text("퇴근 후\n완벽한 밤을 위한\nSEONGSU JAZZ BAR",
+                  style: TextStyle(color: Colors.white, fontSize: 28)),
+              SizedBox.fromSize(
+                size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.03),
+              ),
+              const Text("200여종의 칵테일을 경험해 보세요",
+                  style: TextStyle(color: Colors.white, fontSize: 13)),
+            ],
+          )),
+      Container(
+        padding: const EdgeInsets.fromLTRB(20, 19, 0, 0),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height*0.15,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text(
+              "당신에게 딱\n맞춰진 칵테일을 찾아보세요!",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+      Container(
+        alignment: Alignment.center,
+        width: MediaQuery.of(context).size.width,
+        height: (MediaQuery.of(context).size.height) * (0.3),
+        child: ListView.builder(
+            itemCount: cocktailData.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            CocktailPage(cocktail: cocktailData[index])));
+                  },
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      SizedBox(height: 10), // 10 픽셀의 간격
-                      Text("OUNCE",
-                          style: TextStyle(color: Colors.white, fontSize: 30)),
-                      SizedBox(height: 150), // 10 픽셀의 간격
-                      Text("퇴근 후",
-                          style: TextStyle(color: Colors.white, fontSize: 30)),
-                      Text("완벽한 밤을 위한",
-                          style: TextStyle(color: Colors.white, fontSize: 30)),
-                      Text("SEONGSU JAZZ BAR",
-                          style: TextStyle(color: Colors.white, fontSize: 30)),
-                      SizedBox(height: 20), // 10 픽셀의 간격
-                      Text("200여종의 칵테일을 경험해 보세요",
-                          style: TextStyle(color: Colors.white, fontSize: 15)),
+                    children: [
+                      Image.asset(cocktailData[index].imgPath),
+                      Text(cocktailData[index].name),
                     ],
-                  )),
-
-              Container(
-                padding: const EdgeInsets.all(20),
-                width: 400,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    SizedBox(height: 10), // 10 픽셀의 간격
-                    Text("당신에게 딱",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    Text(
-                      "맞춰진 칵테일을 찾아보세요!",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-
-              Container(
-                alignment: Alignment.center,
-                height: 300,
-                width: 400,
-                child: ListView.builder(
-                    itemCount: cocktailData.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-
-                        child: ListTile(
-                          title: Text(cocktailData[index].name),
-                          leading: SizedBox(
-                            height: 100,
-                            width: 100,
-                            child: Image.asset(cocktailData[index].imgPath),),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CocktailPage(cocktail:cocktailData[index])));
-                          },
-                        ),
-                      );
-                    }),
-              ),
-
-              Container(
-                  child: ElevatedButton(
-                      child: const Text("더 보고 싶어요"),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(
-                                builder: (context2) => SecondPage()));
-                      })),
-            ]
-            )
-        )
-    );
+              );
+            }),
+      ),
+      Container(
+          child: ElevatedButton(
+              child: const Text("더 보고 싶어요"),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context2) => const SecondPage()));
+              })),
+    ])));
   }
 }

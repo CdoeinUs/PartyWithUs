@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'program_model.dart';
+import 'recipe_search.dart';
 
 class SecondPage extends StatefulWidget {
+  const SecondPage({super.key});
+
   @override
   State<SecondPage> createState() => _SecondPageState();
 }
-
+//2번째 메인페이지
 class _SecondPageState extends State<SecondPage> {
   @override
   Widget build(BuildContext context) {
@@ -13,30 +16,25 @@ class _SecondPageState extends State<SecondPage> {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          ElevatedButton(
-            child: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          const Text("DECEMBER'S\nPROGRAM",
+              style: TextStyle(color: Colors.black, fontSize: 30)),
+          SizedBox.fromSize(
+            size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.03),
           ),
-          const Text("DECEMBER'S",
-              style: TextStyle(color: Colors.black, fontSize: 30)),
-          const Text("PROGRAM",
-              style: TextStyle(color: Colors.black, fontSize: 30)),
-          const SizedBox(height: 20),
-          Programs(),
-          const SizedBox(
-            height: 20,
+          const Programs(),
+          SizedBox.fromSize(
+            size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.03),
           ),
           const Text("BARTENDER INTERVIEW",
               style: TextStyle(color: Colors.black, fontSize: 30)),
-          Bartender_Interview(),
+          const BartenderInterview(),
         ]),
       ),
     );
   }
 }
 
+//프로그램 위젯 생성
 class Programs extends StatefulWidget {
   const Programs({Key? key}) : super(key: key);
 
@@ -67,19 +65,19 @@ class _ProgramsState extends State<Programs> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        debugPrint("클릭 됨");
+        Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context2) => const RecipeSearch()));
       },
       child: Container(
         alignment: Alignment.center,
-        height: 380,
-        width: 450,
+        width: MediaQuery.of(context).size.width,
+        height: (MediaQuery.of(context).size.height) * 0.35,
         child: GridView.builder(
             itemCount: programTitle.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 1 / 2, //item 의 가로 1, 세로 2 의 비율
-              mainAxisSpacing: 10, //수평 Padding
-              crossAxisSpacing: 10, //수직 Padding
+              childAspectRatio: 1 / 1.5, //item 의 가로 1, 세로 1.5 의 비율
             ),
             itemBuilder: (context, index) {
               return Card(
@@ -87,7 +85,7 @@ class _ProgramsState extends State<Programs> {
                   Image.asset(programData[index].imagePath),
                   Text(
                     programData[index].title,
-                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(programData[index].detail),
                 ]),
@@ -98,14 +96,14 @@ class _ProgramsState extends State<Programs> {
   }
 }
 
-class Bartender_Interview extends StatefulWidget {
-  const Bartender_Interview({Key? key}) : super(key: key);
+class BartenderInterview extends StatefulWidget {
+  const BartenderInterview({Key? key}) : super(key: key);
 
   @override
-  State<Bartender_Interview> createState() => _Bartender_InterviewState();
+  State<BartenderInterview> createState() => _BartenderInterviewState();
 }
 
-class _Bartender_InterviewState extends State<Bartender_Interview> {
+class _BartenderInterviewState extends State<BartenderInterview> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -113,8 +111,8 @@ class _Bartender_InterviewState extends State<Bartender_Interview> {
         debugPrint("인터뷰 클릭이요");
       },
       child: Container(
-        height: 300,
-        width: 400,
+        width: MediaQuery.of(context).size.width,
+        height: (MediaQuery.of(context).size.height) * 0.35,
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
             image: DecorationImage(
