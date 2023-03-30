@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:partywithus/story.dart';
 import 'program_model.dart';
 import 'recipe_search.dart';
 
@@ -108,7 +109,7 @@ class _BartenderInterviewState extends State<BartenderInterview> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        debugPrint("인터뷰 클릭이요");
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const RecipeSearch()));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const Cocktails(),
     );
@@ -65,17 +65,20 @@ class _CocktailsState extends State<Cocktails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox.fromSize(
-                size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.008),
+                size: Size.fromHeight(
+                    (MediaQuery.of(context).size.height) * 0.008),
               ),
               const Text("OUNCE\n",
                   style: TextStyle(color: Colors.white, fontSize: 28)),
               SizedBox.fromSize(
-                size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.11),
+                size: Size.fromHeight(
+                    (MediaQuery.of(context).size.height) * 0.11),
               ),
               const Text("퇴근 후\n완벽한 밤을 위한\nSEONGSU JAZZ BAR",
                   style: TextStyle(color: Colors.white, fontSize: 28)),
               SizedBox.fromSize(
-                size: Size.fromHeight((MediaQuery.of(context).size.height) * 0.03),
+                size: Size.fromHeight(
+                    (MediaQuery.of(context).size.height) * 0.03),
               ),
               const Text("200여종의 칵테일을 경험해 보세요",
                   style: TextStyle(color: Colors.white, fontSize: 13)),
@@ -84,7 +87,7 @@ class _CocktailsState extends State<Cocktails> {
       Container(
         padding: const EdgeInsets.fromLTRB(20, 19, 0, 0),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height*0.15,
+        height: MediaQuery.of(context).size.height * 0.12,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
@@ -125,10 +128,27 @@ class _CocktailsState extends State<Cocktails> {
       ),
       Container(
           child: ElevatedButton(
-              child: const Text("더 보고 싶어요"),
+              child: Text(
+                "더 보고 싶어요",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.grey[200], // 버튼 색상
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0), // 버튼 모서리 둥글기
+                ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0), // 버튼 패딩
+
+              ),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context2) => const SecondPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context2) => const SecondPage()));
               })),
     ])));
   }

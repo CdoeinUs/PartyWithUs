@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'recipe.dart';
+import 'story.dart';
+import 'liquor_search.dart';
 
 class RecipeSearch extends StatefulWidget {
   const RecipeSearch({Key? key}) : super(key: key);
@@ -59,15 +61,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     Expanded(
                         child: TabBarView(
                       children: [
-                        Text(
-                          '술 페이지',
-                          style: TextStyle(fontSize: 20),
-                        ),
+                        liquorSearch(),
                         Recipe_searched2(),
-                        Text(
-                          '이야기 페이지',
-                          style: TextStyle(fontSize: 20),
-                        ),
+                        storyPage(),
                       ],
                     ))
                   ],

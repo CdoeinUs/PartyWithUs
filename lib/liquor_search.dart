@@ -1,135 +1,208 @@
 import 'package:flutter/material.dart';
+import 'liquorModel.dart';
 import 'liquor_detail.dart';
 
-
-
-class Hyun1 extends StatefulWidget {
-  const Hyun1({Key? key}) : super(key: key);
+class liquorSearch extends StatefulWidget {
+  const liquorSearch({Key? key}) : super(key: key);
 
   @override
-  State<Hyun1> createState() => _Hyun1State();
+  State<liquorSearch> createState() => _liquorSearchState();
 }
 
-class _Hyun1State extends State<Hyun1> {
+class _liquorSearchState extends State<liquorSearch> {
+  static List<String> liquorTitle = [
+    '커티샥 오리지널',
+    '발렌타인 17년',
+  ];
+  static List<String> imagePath = [
+    'image/liquor1.png',
+    'image/liquor2.png',
+  ];
+  static List<String> liquorDetail = [
+    '위스키|30%|296 Likes',
+    '위스키|41%|323 Likes',
+  ];
+
+  final List<Liquor> liquorData = List.generate(
+      liquorTitle.length,
+          (index) =>
+              Liquor(liquorTitle[index], liquorDetail[index], imagePath[index]));
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-          children: [
-            Row(children: [
-              Expanded(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    contentPadding: EdgeInsets.symmetric(vertical: 0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
+    return Scaffold(
+      body: Container(
+        child: Column(children: [
+          const Divider(
+            color: Colors.grey,
+            height: 20,
+            thickness: 1,
+            indent: 0,
+            endIndent: 8,
+          ),
+          Row(
+            //장소, 모임, 가격 필터선택
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                PopupMenuButton<String>(
+                  itemBuilder: (BuildContext context) => [
+                    PopupMenuItem(
+                      child: Text('30도~40도'),
+                      value: 'fast_speed',
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
+                    PopupMenuItem(
+                      child: Text('40도~50도'),
+                      value: 'medium_speed',
+                    ),
+                    PopupMenuItem(
+                      child: Text('50도~'),
+                      value: 'slow_speed',
+                    )
+                  ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.grey[200]),
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          '도수',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Icon(Icons.arrow_drop_down),
+                      ],
                     ),
                   ),
-                  style: TextStyle(
-                    height: 1.5, // height 값 지정
-                  ),
+                  onSelected: (String value) {
+                    print('Selected: $value');
+                  },
                 ),
-                flex: 8,
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: null,
-                  child: Text("취소"),
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(Size.zero), // TextButton 크기 0으로 설정
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.zero, // TextButton padding 제거
+                PopupMenuButton<String>(
+                  itemBuilder: (BuildContext context) => [
+                    PopupMenuItem(
+                      child: Text('10000원 이하'),
+                      value: 'easy',
+                    ),
+                    PopupMenuItem(
+                      child: Text('10000원~20000원'),
+                      value: 'medium',
+                    ),
+                    PopupMenuItem(
+                      child: Text('20000원~'),
+                      value: 'hard',
+                    )
+                  ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.grey[200]),
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          '가격',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Icon(Icons.arrow_drop_down),
+                      ],
                     ),
                   ),
+                  onSelected: (String value) {
+                    print('Selected: $value');
+                  },
                 ),
-                flex: 1,
-              )
-            ]),
-
-
-            Row(children: [
-              Spacer(flex: 1),
-              Text("술",style: TextStyle(fontWeight: FontWeight.bold),),
-              Spacer(flex: 2),
-              Text("레시피",style:TextStyle(fontWeight: FontWeight.bold),),
-              Spacer(flex: 2),
-              Text("스토리",style:TextStyle(fontWeight: FontWeight.bold),),
-              Spacer(flex: 50),
-            ],),
-            Row(children: [
-
-            ],),
-            Expanded(child: Container(
-              child: ListView(
-                children: [
-                  LiquorItem(name: "발렌타인 2000년산", type: "위스키", alcoholLevel: "100%", imgPath: "", like: "2000"),
-                  LiquorItem(name: "발렌타인 2000년산", type: "위스키", alcoholLevel: "100%", imgPath: "", like: "2000"),
-                  LiquorItem(name: "발렌타인 2000년산", type: "위스키", alcoholLevel: "100%", imgPath: "", like: "2000"),
-                  LiquorItem(name: "발렌타인 2000년산", type: "위스키", alcoholLevel: "100%", imgPath: "", like: "2000"),
-                  LiquorItem(name: "발렌타인 2000년산", type: "위스키", alcoholLevel: "100%", imgPath: "", like: "2000"),
-                ],
-              ),
-            )),
-          ]
+                PopupMenuButton<String>(
+                  itemBuilder: (BuildContext context) => [
+                    PopupMenuItem(
+                      child: Text('바닐라향'),
+                      value: 'sweet',
+                    ),
+                    PopupMenuItem(
+                      child: Text('스파이시향'),
+                      value: 'salty',
+                    ),
+                    PopupMenuItem(
+                      child: Text('오크향'),
+                      value: 'tasty',
+                    )
+                  ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.grey[200]),
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          '향',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Icon(Icons.arrow_drop_down),
+                      ],
+                    ),
+                  ),
+                  onSelected: (String value) {
+                    print('Selected: $value');
+                  },
+                )
+              ]),
+          const Divider(
+            color: Colors.grey,
+            height: 20,
+            thickness: 1,
+            indent: 0,
+            endIndent: 8,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.6,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+                itemCount: liquorTitle.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>liquor_Detail()));
+                      },
+                      title: Text(
+                        liquorData[index].name,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      leading: Image.asset(liquorData[index].detail),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(liquorData[index].imagePath),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.expand_more_outlined),
+                    ),
+                  );
+                }),
+          ),
+        ]),
       ),
-    )
-    );
-  }
-}
-class LiquorItem extends StatefulWidget {
-  const LiquorItem({
-    Key? key,
-    required this.name,
-    required this.type,
-    required this.alcoholLevel,
-    required this.imgPath,
-    required this.like,
-  }) : super(key: key);
-  final String name;    //술 이름
-  final String type;    //술 종류
-  final String alcoholLevel;    //술 도수
-  final String imgPath; //이미지 경로
-  final String like; //좋아요 수
-  @override
-  State<LiquorItem> createState() => _LiquorItemState();
-}
-
-class _LiquorItemState extends State<LiquorItem> {
-  @override
-  Widget build(BuildContext context) {
-    String name = widget.name;    //술 이름
-    String type = widget.type;    //술 종류
-    String alcoholLevel = widget.alcoholLevel;    //술 도수
-    String imgPath = widget.imgPath; //이미지 경로
-    String like = widget.like; //좋아요 수
-    return InkWell(
-      onTap: () async {
-        await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const LiquorPage()),
-        );
-      },
-    child: Container(
-    child: Row(
-    children: [
-    Image.asset(imgPath),
-    Column(children: [
-    Text(name),
-    Row(children: [
-    Text(type),
-    Text(alcoholLevel),
-    Text(like),
-    ],)
-    ]),
-    ],
-    ),
-    ),
     );
   }
 }

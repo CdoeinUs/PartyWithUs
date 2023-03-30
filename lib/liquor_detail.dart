@@ -1,58 +1,174 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-class LiquorPage extends StatefulWidget {
-  const LiquorPage({Key? key}) : super(key: key);
+import 'liquorModel.dart';
+
+class liquor_Detail extends StatefulWidget {
+  const liquor_Detail({Key? key}) : super(key: key);
 
   @override
-  State<LiquorPage> createState() => _LiquorPageState();
+  State<liquor_Detail> createState() => _liquor_DetailState();
 }
 
-class _LiquorPageState extends State<LiquorPage> {
+class _liquor_DetailState extends State<liquor_Detail> {
+  static List<String> liquorName = [
+    '커티샥 오리지널',
+    '발렌타인 17년',
+  ];
+  static List<String> imagePath = [
+    'image/liquor1.png',
+    'image/liquor2.png',
+  ];
+  static List<String> liquorDetail = [
+    '커티샥슉쇽셕',
+    '발렌타인 고등학교 1학년',
+  ];
+
+  final List<Liquor> liquorData = List.generate(
+      liquorName.length,
+      (index) =>
+          Liquor(liquorName[index], liquorDetail[index], imagePath[index]));
+
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Image.asset(""),
-      Text("영문 명"),
-      Text("한글 명"),
-      Text("한글 명"),
-      Row(children: [
-        RatingBar(
-            initialRating: 0,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            ratingWidget: RatingWidget(
-                full: const Icon(Icons.star, color: Colors.orange),
-                half: const Icon(
-                  Icons.star_half,
-                  color: Colors.orange,
+    return Scaffold(
+      body: Container(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: (MediaQuery.of(context).size.width) * 3 / 5,
+                decoration: BoxDecoration(
+                    image:
+                        DecorationImage(image: AssetImage("image/liquor1.png"))),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Cutty Sark Original',
+                style: TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                '커티샥 오리지널',
+                style: TextStyle(
+                  fontSize: 20,
                 ),
-                empty: const Icon(
-                  Icons.star_outline,
-                  color: Colors.orange,
-                )),
-            onRatingUpdate: (value) {
-              setState(() {
-              });
-            }),
-        Text("10만개의 리뷰"),
-      ],),
-      Row(children: [
-        Text("카테고리  "),
-        Text("카테고리  "),
-        Text("국가  "),
-        Text("스코틀랜드  "),
-      ],),
-      Row(children: [
-        Text("용량 "),
-        Text("500ml  "),
-        Text("케이스  "),
-        Text("없음  "),
-      ],),
-      Row(children: [
-        Text("도수  "),
-        Text("30%  "),
-      ],),
-    ],);
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Row(
+                children: [
+                  Icon(Icons.star),
+                  Icon(Icons.star),
+                  Icon(Icons.star),
+                  Icon(Icons.star_border),
+                  Icon(Icons.star_border),
+                  Text("    51개의 리뷰")
+                ],
+              ),
+              const Divider(
+                color: Colors.grey,
+                height: 12,
+                thickness: 1,
+                indent: 0,
+                endIndent: 0,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    Row(children: [
+                      Text(
+                        "카테고리\t",
+                        style: TextStyle(color: Colors.blueGrey),
+                      ),
+                      Text(
+                        "블렌디드 위스키\t",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "국가\t",
+                        style: TextStyle(color: Colors.blueGrey),
+                      ),
+                      Text(
+                        "스코틀랜드",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ]),
+                    Row(children: [
+                      Text(
+                        "용량\t",
+                        style: TextStyle(color: Colors.blueGrey),
+                      ),
+                      Text(
+                        "500ml\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "가격\t",
+                        style: TextStyle(color: Colors.blueGrey),
+                      ),
+                      Text(
+                        "25000\t",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ]),
+                    Row(children: [
+                      Text(
+                        "도수\t",
+                        style: TextStyle(color: Colors.blueGrey),
+                      ),
+                      Text(
+                        "30%\t",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.grey,
+                height: 12,
+                thickness: 1,
+                indent: 0,
+                endIndent: 0,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+
+          // FAB를 눌렀을 때 수행할 작업
+        },
+        child: Icon(Icons.share),
+      ),
+
+    );
   }
 }
