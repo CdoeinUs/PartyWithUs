@@ -1,210 +1,141 @@
 import 'package:flutter/material.dart';
-import 'program_model.dart';
+import 'story_model.dart';
 import 'storyDetail.dart';
 
-class storyPage extends StatefulWidget {
-  const storyPage({Key? key}) : super(key: key);
-
-  @override
-  State<storyPage> createState() => _storyPageState();
-}
-
-class _storyPageState extends State<storyPage> {
-  static List<String> programTitle = [
-    'PWU 12월 크리스마스 모임',
-    'PWU 11월 크리스마스 모임',
-  ];
-  static List<String> imagePath = [
-    'image/program1.png',
-    'image/program2.png',
-  ];
-  static List<String> programDetail = [
-    '크리스마스엔 따뜻한 뱅쇼 한 잔 어때요?',
-    '지친 여행자를 위한 위로의 레시피',
-  ];
-
-  final List<Program> programData = List.generate(
-      programTitle.length,
-      (index) =>
-          Program(programTitle[index], programDetail[index], imagePath[index]));
+class story extends StatelessWidget {
+  const story({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Column(children: [
-          const Divider(
-            color: Colors.grey,
-            height: 20,
-            thickness: 1,
-            indent: 0,
-            endIndent: 8,
-          ),
-          Row(
-              //장소, 모임, 가격 필터선택
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                PopupMenuButton<String>(
-                  itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                      child: Text('서울 회기동'),
-                      value: 'fast_speed',
-                    ),
-                    PopupMenuItem(
-                      child: Text('서울 전농동'),
-                      value: 'medium_speed',
-                    ),
-                    PopupMenuItem(
-                      child: Text('서울 송파동'),
-                      value: 'slow_speed',
-                    )
-                  ],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey[200]),
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          '장소',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Icon(Icons.arrow_drop_down),
-                      ],
-                    ),
-                  ),
-                  onSelected: (String value) {
-                    print('Selected: $value');
-                  },
-                ),
-                PopupMenuButton<String>(
-                  itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                      child: Text('12월 크리스마스 모임'),
-                      value: 'easy',
-                    ),
-                    PopupMenuItem(
-                      child: Text('11월 크리스마스 모임'),
-                      value: 'medium',
-                    ),
-                    PopupMenuItem(
-                      child: Text('10월 크리스마스 모임'),
-                      value: 'hard',
-                    )
-                  ],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey[200]),
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          '모임',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Icon(Icons.arrow_drop_down),
-                      ],
-                    ),
-                  ),
-                  onSelected: (String value) {
-                    print('Selected: $value');
-                  },
-                ),
-                PopupMenuButton<String>(
-                  itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                      child: Text('10000원 이하'),
-                      value: 'sweet',
-                    ),
-                    PopupMenuItem(
-                      child: Text('10000원~20000원'),
-                      value: 'salty',
-                    ),
-                    PopupMenuItem(
-                      child: Text('20000원~'),
-                      value: 'tasty',
-                    )
-                  ],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey[200]),
-                    padding: EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          '가격',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Icon(Icons.arrow_drop_down),
-                      ],
-                    ),
-                  ),
-                  onSelected: (String value) {
-                    print('Selected: $value');
-                  },
+    return Scrollbar(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: testStory(context).length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return storyItem(story: testStory(context)[index]);
+                      }),
                 )
-              ]),
-          const Divider(
-            color: Colors.grey,
-            height: 20,
-            thickness: 1,
-            indent: 0,
-            endIndent: 8,
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.6,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-                itemCount: programTitle.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>StorysDetail()));
-                      },
-                      title: Text(
-                        programData[index].title,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      leading: Image.asset(programData[index].imagePath),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(programData[index].detail),
-                          Text('회기 | 게더링 | 유료'),
-                        ],
-                      ),
-                      trailing: const Icon(Icons.favorite),
-                      isThreeLine: true,
-                    ),
-                  );
-                }),
-          ),
-        ]),
+              ],
+            ),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class storyItem extends StatelessWidget {
+  const storyItem({Key? key, required this.story, this.shape})
+      : super(key: key);
+
+  // This height will allow for all the Card's content to fit comfortably within the card.
+  static const height = 255.0;
+  final StoryInfo story;
+  final ShapeBorder? shape;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: SizedBox(
+        height: height,
+        child: Card(
+          // This ensures that the Card's children (including the ink splash) are clipped correctly.
+          clipBehavior: Clip.antiAlias,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => StoryPage(story: story
+                      )));
+            },
+            // Generally, material cards use onSurface with 12% opacity for the pressed state.
+            splashColor:
+                Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+            // Generally, material cards do not have a highlight overlay.
+            highlightColor: Colors.transparent,
+            child: Semantics(
+              child: StoryContent(story: story),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class StoryContent extends StatelessWidget {
+  const StoryContent({Key? key, required this.story}) : super(key: key);
+
+  final StoryInfo story;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final titleStyle = theme.textTheme.titleSmall!;
+    final descriptionStyle = theme.textTheme.bodySmall!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 160,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Ink.image(
+                  image: AssetImage(
+                    story.storyImgPath,
+                  ),
+                  fit: BoxFit.cover,
+                  child: Container(),
+                ),
+              ),
+
+            ],
+          ),
+        ),
+        Semantics(
+          container: true,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+            child: DefaultTextStyle(
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+              style: descriptionStyle.copyWith(color: Colors.black54),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    story.place,
+                    style: descriptionStyle.copyWith(color: Colors.black54),
+                  ),
+                  Text(
+                    story.title,
+                    style: titleStyle,
+                  ),
+                  Text(
+                    "${story.date} | ${story.people.length} | ${story.time}(${story.duration})",
+                    style: descriptionStyle.copyWith(color: Colors.black54),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

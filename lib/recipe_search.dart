@@ -6,8 +6,7 @@ import 'recipe_model.dart';
 
 const routeRecipeSearched = "/";
 const routeRecipePage = "/RecipePage";
-final _navigatorKey = GlobalKey<NavigatorState>();
-
+final _recipenavigatorKey = GlobalKey<NavigatorState>();
 MaterialPageRoute _onGenerateRoute(RouteSettings setting) {
   if (setting.name == routeRecipeSearched) {
     return MaterialPageRoute<dynamic>(
@@ -76,30 +75,21 @@ class _RecipeSearchState extends State<RecipeSearch> {
                         child: TabBarView(
                       children: [
                         liquorSearch(),
-                        Recipe_searched(),
-                        storyPage(),
-                        Text(
-                          '술 페이지',
-                          style: TextStyle(fontSize: 20),
-                        ),
                         WillPopScope(
                           onWillPop: () async {
                             print('pop');
-                            if (_navigatorKey.currentState?.canPop() ?? false) {
-                              _navigatorKey.currentState?.pop();
+                            if (_recipenavigatorKey.currentState?.canPop() ?? false) {
+                              _recipenavigatorKey.currentState?.pop();
                             }
                             return false;
                           },
                           child: Navigator(
-                            key: _navigatorKey,
+                            key: _recipenavigatorKey,
                             initialRoute: routeRecipeSearched,
                             onGenerateRoute: _onGenerateRoute,
                           ),
                         ),
-                        Text(
-                          '이야기 페이지',
-                          style: TextStyle(fontSize: 20),
-                        ),
+                        story(),
                       ],
                     ))
                   ],
@@ -309,7 +299,6 @@ class _Recipe_searchedState extends State<Recipe_searched> {
                       recipe: testRecipes(context)[index],
                     ),
                   );
-
                 }),
           ),
           Align(
