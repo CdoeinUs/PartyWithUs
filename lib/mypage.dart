@@ -129,7 +129,7 @@ class _myHomeState extends State<myHome> {
               ],
             ),
             Container(
-              height : (MediaQuery.of(context).size.height) * 0.5,
+              height : (MediaQuery.of(context).size.height) * 0.4,
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,

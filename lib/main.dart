@@ -85,13 +85,7 @@ class _CocktailsState extends State<Cocktails> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox.fromSize(
-                      size: Size.fromHeight(
-                          (MediaQuery
-                              .of(context)
-                              .size
-                              .height) * 0.003),
-                    ),
+                    const SizedBox(height: 20),
                     const Text("OUNCE\n",
                         style: TextStyle(color: Colors.white, fontSize: 25)),
                     SizedBox.fromSize(
@@ -140,32 +134,32 @@ class _CocktailsState extends State<Cocktails> {
             ),
             Container(
               alignment: Alignment.center,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              height: (MediaQuery
-                  .of(context)
-                  .size
-                  .height) * (0.15),
+              width: MediaQuery.of(context).size.width,
+              height: (MediaQuery.of(context).size.height) * (0.3),
               child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
                   itemCount: cocktailData.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  CocktailPage(cocktail: cocktailData[index])));
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(cocktailData[index].imgPath),
-                            Text(cocktailData[index].name),
-                          ],
-                        ),
-                      ),
-                    );
+                    return Container(
+                        width: 200,
+                        height: 200,
+                        child: Card(
+                          child : Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(cocktailImagePath[index]),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        CocktailPage(cocktail: cocktailData[index])));
+                              },
+                            ),
+                          ),
+                        ));
                   }),
             ),
             Container(
