@@ -41,23 +41,6 @@ class Programs extends StatefulWidget {
 }
 
 class _ProgramsState extends State<Programs> {
-  static List<String> programTitle = [
-    '크리스마스엔 따뜻한 뱅쇼 한 잔 어때요?',
-    '지친 여행자를 위한 위로의 레시피',
-  ];
-  static List<String> imagePath = [
-    'image/program1.png',
-    'image/program2.png',
-  ];
-  static List<String> programDetail = [
-    '준성과 함께 쉽고 간단한 레시피를 배워봐요 :)',
-    '호찬과 함께 쉽고 간단한 레시피를 배워봐요 :)',
-  ];
-
-  final List<Program> programData = List.generate(
-      programTitle.length,
-      (index) =>
-          Program(programTitle[index], programDetail[index], imagePath[index]));
 
   @override
   Widget build(BuildContext context) {

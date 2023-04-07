@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'liquorModel.dart';
 
 class liquor_Detail extends StatefulWidget {
   const liquor_Detail({Key? key}) : super(key: key);
@@ -9,23 +8,6 @@ class liquor_Detail extends StatefulWidget {
 }
 
 class _liquor_DetailState extends State<liquor_Detail> {
-  static List<String> liquorName = [
-    '커티샥 오리지널',
-    '발렌타인 17년',
-  ];
-  static List<String> imagePath = [
-    'image/liquor1.png',
-    'image/liquor2.png',
-  ];
-  static List<String> liquorDetail = [
-    '커티샥슉쇽셕',
-    '발렌타인 고등학교 1학년',
-  ];
-
-  final List<Liquor> liquorData = List.generate(
-      liquorName.length,
-      (index) =>
-          Liquor(liquorName[index], liquorDetail[index], imagePath[index]));
 
   @override
   Widget build(BuildContext context) {

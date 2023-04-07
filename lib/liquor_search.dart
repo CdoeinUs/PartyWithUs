@@ -10,23 +10,6 @@ class liquorSearch extends StatefulWidget {
 }
 
 class _liquorSearchState extends State<liquorSearch> {
-  static List<String> liquorTitle = [
-    '커티샥 오리지널',
-    '발렌타인 17년',
-  ];
-  static List<String> imagePath = [
-    'image/liquor1.png',
-    'image/liquor2.png',
-  ];
-  static List<String> liquorDetail = [
-    '위스키|30%|296 Likes',
-    '위스키|41%|323 Likes',
-  ];
-
-  final List<Liquor> liquorData = List.generate(
-      liquorTitle.length,
-          (index) =>
-              Liquor(liquorTitle[index], liquorDetail[index], imagePath[index]));
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +160,7 @@ class _liquorSearchState extends State<liquorSearch> {
             height: MediaQuery.of(context).size.height * 0.6,
             width: MediaQuery.of(context).size.width,
             child: ListView.builder(
-                itemCount: liquorTitle.length,
+                itemCount: liquorName.length,
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
