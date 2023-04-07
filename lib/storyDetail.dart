@@ -7,23 +7,30 @@ class StoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [Container(
-          child: Scrollbar(
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(children: [
+          Scrollbar(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(story.place, style: TextStyle(color: Colors.grey),),
-                Text(story.title,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),),
-                SizedBox(
+                Text(
+                  story.place,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+                Text(
+                  story.title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(
                   height: 8,
                 ),
-                Text('${story.date} | ${story.people.length} | ${story.time}(${story.duration})', style: TextStyle(color: Colors.grey)),
+                Text(
+                    '${story.date} | ${story.people.length}명 | ${story.time}(${story.duration})',
+                    style: const TextStyle(color: Colors.grey)),
                 const Divider(
                   color: Colors.grey,
                   height: 10,
@@ -33,42 +40,41 @@ class StoryPage extends StatelessWidget {
                   children: [
                     Flexible(
                         child: Image(
-                          image: AssetImage(story.storyImgPath),
-                        )),
+                      image: AssetImage(story.storyImgPath),
+                    )),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(story.content)
               ],
-
             ),
           ),
-        ),
           Positioned(
-            bottom: 0,
+              bottom: 0,
               left: 0,
               right: 0,
               child: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.bottomRight,
-            child: Semantics(
-              container: true,
-              header: true,
-              child: MaterialButton(
-                  onPressed: () {},
-                  color: Colors.purple,
-                  textColor: Colors.white,
-                  child: Icon(Icons.assignment,
-                    size: 24,),
-                shape: CircleBorder(),
-                padding: EdgeInsets.all(16),
-
-
-              ),
-            ),
-          ))]
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.bottomRight,
+                child: Semantics(
+                  container: true,
+                  header: true,
+                  child: MaterialButton(
+                    onPressed: () {},
+                    color: Colors.purple,
+                    textColor: Colors.white,
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(16),
+                    child: const Icon(
+                      Icons.assignment,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ))
+        ]),
       ),
     );
   }

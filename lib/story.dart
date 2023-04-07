@@ -58,8 +58,7 @@ class storyItem extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => StoryPage(story: story
-                      )));
+                      builder: (context) => StoryPage(story: story)));
             },
             // Generally, material cards use onSurface with 12% opacity for the pressed state.
             splashColor:
@@ -91,7 +90,7 @@ class StoryContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 160,
+          height: 180,
           child: Stack(
             children: [
               Positioned.fill(
@@ -103,7 +102,6 @@ class StoryContent extends StatelessWidget {
                   child: Container(),
                 ),
               ),
-
             ],
           ),
         ),
@@ -127,7 +125,7 @@ class StoryContent extends StatelessWidget {
                     style: titleStyle,
                   ),
                   Text(
-                    "${story.date} | ${story.people.length} | ${story.time}(${story.duration})",
+                    "${story.date} | ${story.people.length}명 | ${story.time}(${story.duration})",
                     style: descriptionStyle.copyWith(color: Colors.black54),
                   ),
                 ],

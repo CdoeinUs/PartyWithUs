@@ -18,13 +18,13 @@ class RecipeInfo {
   final String cardImagePath; //검색창에서 보여지는 이미지
   final String writerName;
   final String description; //짧은 설명
-  final String time;
+  final String time; //소요시간
   final String date; //작성날짜
   final int favorite;
-  final int percentage; //무슨 퍼센트여 이게;;
-  final List<String> ingredient;
-  final List<String> process;
-  final List<String> processImagePath;
+  final int percentage; //칵테일 도수
+  final List<String> ingredient; //재료
+  final List<String> process; //과정 리스트
+  final List<String> processImagePath; //사이사이 들어가는 사진 리스트
 }
 
 // class RecipePageInfo extends RecipeCardInfo{
@@ -40,9 +40,7 @@ class RecipeInfo {
 //   RecipeCardInfo({required this.name, required this.cardImagePath});
 // }
 
-/**
- * 테스트용 레시피 정보
- */
+/// 테스트용 레시피 정보
 List<RecipeInfo> testRecipes(BuildContext context) {
   return [
     RecipeInfo(
