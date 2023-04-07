@@ -60,21 +60,19 @@ class _FeedState extends State<Feed> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children: [
-                    Text(
-                      posts[index].username,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    posts[index].username,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
-                    SizedBox(width: 10),
-                    Text(posts[index].caption),
-                  ],
-                ),
+                  ),
+                  Text(posts[index].caption),
+                ],
               ),
               SizedBox(height: 10),
             ],

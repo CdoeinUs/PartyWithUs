@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 
 class WritePage extends StatefulWidget {
   @override
@@ -13,35 +12,35 @@ class _WritePageState extends State<WritePage> {
   final TextEditingController _contentController = TextEditingController();
 
   @override
-  void dispose() {
-    _titleController.dispose();
-    _contentController.dispose();
-    super.dispose();
-  }
-
-  final picker = ImagePicker();
-
-  File? _image; // 선택한 이미지를 저장할 변수
-
-// 카메라에서 이미지 가져오기
-  Future<void> _getImageFromCamera() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
-    if (image != null) {
-      setState(() {
-        _image = File(image.path);
-      });
-    }
-  }
-
-// 갤러리에서 이미지 가져오기
-  Future<void> _getImageFromGallery() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _image = File(image.path);
-      });
-    }
-  }
+//   void dispose() {
+//     _titleController.dispose();
+//     _contentController.dispose();
+//     super.dispose();
+//   }
+//
+//   final picker = ImagePicker();
+//
+//   File? _image; // 선택한 이미지를 저장할 변수
+//
+// // 카메라에서 이미지 가져오기
+//   Future<void> _getImageFromCamera() async {
+//     final image = await ImagePicker().pickImage(source: ImageSource.camera);
+//     if (image != null) {
+//       setState(() {
+//         _image = File(image.path);
+//       });
+//     }
+//   }
+//
+// // 갤러리에서 이미지 가져오기
+//   Future<void> _getImageFromGallery() async {
+//     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+//     if (image != null) {
+//       setState(() {
+//         _image = File(image.path);
+//       });
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +63,7 @@ class _WritePageState extends State<WritePage> {
             const SizedBox(height: 16.0),
             Expanded(
               child: TextField(
+                textAlign: TextAlign.start,
                 controller: _contentController,
                 maxLines: null,
                 expands: true,
@@ -73,18 +73,18 @@ class _WritePageState extends State<WritePage> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                ElevatedButton(
-                  onPressed: _getImageFromCamera,
-                  child: const Text('카메라에서 사진 가져오기'),
-                ),
-                ElevatedButton(
-                  onPressed: _getImageFromGallery,
-                  child: const Text('갤러리에서 사진 가져오기'),
-                ),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     ElevatedButton(
+            //       onPressed: _getImageFromCamera,
+            //       child: const Text('카메라에서 사진 가져오기'),
+            //     ),
+            //     ElevatedButton(
+            //       onPressed: _getImageFromGallery,
+            //       child: const Text('갤러리에서 사진 가져오기'),
+            //     ),
+            //   ],
+            // ),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
