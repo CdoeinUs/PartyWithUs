@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:partywithus/story.dart';
 import 'program_model.dart';
 import 'recipe_search.dart';
 
@@ -13,8 +12,7 @@ class SecondPage extends StatefulWidget {
 class _SecondPageState extends State<SecondPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text("DECEMBER'S\nPROGRAM",
@@ -30,8 +28,7 @@ class _SecondPageState extends State<SecondPage> {
               style: TextStyle(color: Colors.black, fontSize: 30)),
           const BartenderInterview(),
         ]),
-      ),
-    );
+      );
   }
 }
 
@@ -74,22 +71,23 @@ class _ProgramsState extends State<Programs> {
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,
         height: (MediaQuery.of(context).size.height) * 0.35,
-        child: GridView.builder(
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
             itemCount: programTitle.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1 / 1.5, //item 의 가로 1, 세로 1.5 의 비율
-            ),
             itemBuilder: (context, index) {
-              return Card(
-                child: Column(children: [
-                  Image.asset(programData[index].imagePath),
-                  Text(
-                    programData[index].title,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(programData[index].detail),
-                ]),
+              return SizedBox(
+                height: 300,
+                width: 200,
+                child: Card(
+                  child: Column(children: [
+                    Image.asset(programData[index].imagePath),
+                    Text(
+                      programData[index].title,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Text(programData[index].detail),
+                  ]),
+                ),
               );
             }),
       ),
