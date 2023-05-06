@@ -10,8 +10,23 @@ class liquorSearch extends StatefulWidget {
 }
 
 class _liquorSearchState extends State<liquorSearch> {
-
   @override
+  bool isLoading = true;
+
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    print('눌림ㅎㅎ');
+    await fetchLiquorData();
+    print(liquorData);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -24,7 +39,7 @@ class _liquorSearchState extends State<liquorSearch> {
             endIndent: 8,
           ),
           Row(
-            //장소, 모임, 가격 필터선택
+            //도수, 가격, 맛 필터선택
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
@@ -159,30 +174,39 @@ class _liquorSearchState extends State<liquorSearch> {
           Container(
             height: MediaQuery.of(context).size.height * 0.6,
             width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-                itemCount: liquorName.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>liquor_Detail()));
-                      },
-                      title: Text(
-                        liquorData[index].name,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : liquorData.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: liquorData.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => liquor_Detail()));
+                              },
+                              title: Text(
+                                liquorData[index].name,
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              leading: Image.network(liquorData[index].image),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(liquorData[index].name),
+                                ],
+                              ),
+                              trailing: const Icon(Icons.expand_more_outlined),
+                            ),
+                          );
+                        })
+                    : Container(
+                        child: Text('술이 부족해..ㅠㅠ'),
                       ),
-                      leading: Image.asset(liquorData[index].detail),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(liquorData[index].imagePath),
-                        ],
-                      ),
-                      trailing: const Icon(Icons.expand_more_outlined),
-                    ),
-                  );
-                }),
           ),
         ]),
       ),
