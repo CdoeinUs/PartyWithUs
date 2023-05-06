@@ -19,7 +19,7 @@ class _liquorSearchState extends State<liquorSearch> {
   }
 
   void fetchData() async {
-    print('눌림ㅎㅎ');
+    print('시작');
     await fetchLiquorData();
     print(liquorData);
     setState(() {
