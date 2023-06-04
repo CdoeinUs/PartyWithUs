@@ -122,6 +122,22 @@ class Recipe_searched extends StatefulWidget {
 
 class _Recipe_searchedState extends State<Recipe_searched> {
   @override
+  bool isLoading = true;
+
+  void initState() {
+    super.initState();
+    fetchData1();
+  }
+
+  void fetchData1() async {
+    print('불러와야지?');
+    await fetchCocktailData();
+    print(cocktailData);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
@@ -286,23 +302,29 @@ class _Recipe_searchedState extends State<Recipe_searched> {
           ),
           //IBA 레시피 카드 GridView
           SizedBox(
-            height: 250,
-            child: GridView.builder(
-                scrollDirection: Axis.horizontal,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 3,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 2 / 1),
-                itemCount: testRecipes(context).length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Flexible(
-                    child: RecipeItem(
-                      recipe: testRecipes(context)[index],
-                    ),
-                  );
-                }),
-          ),
+              height: 250,
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : cocktailData.isNotEmpty
+                      ? GridView.builder(
+                          scrollDirection: Axis.horizontal,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 1,
+                                  mainAxisSpacing: 3,
+                                  crossAxisSpacing: 10,
+                                  childAspectRatio: 2 / 1),
+                          itemCount: cocktailData.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Flexible(
+                              child: RecipeItem(
+                                recipe: cocktailData[index],
+                              ),
+                            );
+                          })
+                      : Container(
+                          child: Text("내용이 없네요 ㅠㅠ"),
+                        )),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
@@ -336,23 +358,27 @@ class _Recipe_searchedState extends State<Recipe_searched> {
           ),
           //시그니처 레시피 카드 GridView
           SizedBox(
-            height: 250,
-            child: GridView.builder(
-                scrollDirection: Axis.horizontal,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 3,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 2 / 1),
-                itemCount: testRecipes(context).length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Flexible(
-                    child: RecipeItem(
-                      recipe: testRecipes(context)[index],
-                    ),
-                  );
-                }),
-          ),
+              height: 250,
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : cocktailData.isNotEmpty
+                      ? GridView.builder(
+                          scrollDirection: Axis.horizontal,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 1,
+                                  mainAxisSpacing: 3,
+                                  crossAxisSpacing: 10,
+                                  childAspectRatio: 2 / 1),
+                          itemCount: cocktailData.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Flexible(
+                              child: RecipeItem(
+                                recipe: cocktailData[index],
+                              ),
+                            );
+                          })
+                      : Text("내용이 없다...")),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
@@ -377,7 +403,7 @@ class RecipeItem extends StatelessWidget {
 
   // This height will allow for all the Card's content to fit comfortably within the card.
   static const height = 200.0;
-  final RecipeInfo recipe;
+  final Cocktail recipe;
   final ShapeBorder? shape;
 
   @override
@@ -417,7 +443,7 @@ class RecipeItem extends StatelessWidget {
 class RecipeContent extends StatelessWidget {
   const RecipeContent({Key? key, required this.recipe}) : super(key: key);
 
-  final RecipeInfo recipe;
+  final Cocktail recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -428,64 +454,62 @@ class RecipeContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 190,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: Ink.image(
-                  image: AssetImage(
-                    recipe.cardImagePath,
-                  ),
-                  fit: BoxFit.cover,
-                  child: Container(),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.bottomRight,
-                  child: Semantics(
-                    container: true,
-                    header: true,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite_border),
-                      color: Colors.grey[600],
-                      iconSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Semantics(
-          container: true,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-            child: DefaultTextStyle(
-              softWrap: false,
-              overflow: TextOverflow.ellipsis,
-              style: descriptionStyle,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        Column(
+          children: [
+            SizedBox(
+              height: 190,
+              child: Stack(
                 children: [
-                  Text(
-                    recipe.name,
-                    style: titleStyle,
+                  Positioned.fill(
+                    child: Image.network(recipe.cardImagePath),
                   ),
-                  Text(
-                    "${recipe.percentage}% | ${recipe.favorite}",
-                    style: descriptionStyle.copyWith(color: Colors.black54),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.bottomRight,
+                      child: Semantics(
+                        container: true,
+                        header: true,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.favorite_border),
+                          color: Colors.grey[600],
+                          iconSize: 20,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
+            Semantics(
+              container: true,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                child: DefaultTextStyle(
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                  style: descriptionStyle,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        recipe.name,
+                        style: titleStyle,
+                      ),
+                      Text(
+                        "${recipe.proof}% | ${recipe.favorite}",
+                        style: descriptionStyle.copyWith(color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

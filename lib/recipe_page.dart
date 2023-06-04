@@ -3,14 +3,14 @@ import 'recipe_model.dart';
 
 class RecipePage extends StatelessWidget {
   const RecipePage({Key? key, required this.recipe}) : super(key: key);
-  final RecipeInfo recipe;
+  final Cocktail recipe;
 
   @override
   Widget build(BuildContext context) {
     print("레시피 페이지 열림");
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,9 +18,8 @@ class RecipePage extends StatelessWidget {
             Row(
               children: [
                 Flexible(
-                    child: Image(
-                  image: AssetImage(recipe.cardImagePath),
-                )),
+                  child: Image.network(recipe.cardImagePath),
+                ),
               ],
             ),
             const SizedBox(
@@ -86,14 +85,6 @@ class RecipePage extends StatelessWidget {
                   ),
                 ],
               ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: (MediaQuery.of(context).size.width) * 1 / 10,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.red,
-              ),
-            )
           ],
         ),
       ),
